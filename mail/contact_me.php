@@ -1,5 +1,4 @@
-<?php
-// Check for empty fields
+<!-- ?php
 if(empty($_POST['name'])      ||
    empty($_POST['email'])	  ||
    empty($_POST['message'])   ||
@@ -21,4 +20,25 @@ $headers = "From: noresponder@tingoid.com\n"; // This is the email address the g
 $headers .= "Reply-To: $email_address";   
 mail($to,$email_subject,$email_body,$headers);
 return true;         
+?> -->
+
+<?php
+	$nombre = $_POST["name"];
+	$correo = $_POST["email"];
+	$consulta = $_POST["message"];
+	$header = 'From: ' . $correo . " \r\n";
+	$header .= "X-Mailer: PHP/" . phpversion() . " \r\n";
+	$header .= "Mime-Version: 1.0 \r\n";
+	$header .= "Content-Type: text/plain";
+	$mensaje = "Mensaje enviado por " . $nombre . " \r\n";
+	$mensaje .= "Su e-mail es: " . $correo . " \r\n";
+	$mensaje .= "Mensaje: " . $consulta . " \r\n";
+	$mensaje .= "Enviado el " . date('d/m/Y', time());
+	$para = "cisc.amaro@gmail.com";
+	$asunto = "Contacto desde formulario tingoid.cl";
+	$estado = mail($para, $asunto, utf8_decode($mensaje), $header);
+
+	return $estado;
+	
+	
 ?>
